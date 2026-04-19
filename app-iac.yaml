@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: meu-app-python
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: meu-app
@@ -16,7 +16,7 @@ spec:
       - name: python-app
         image: python:3.9-slim
         command: ["/bin/sh", "-c"]
-        args: ["echo 'Olá do cluster do Mateus!' > index.html; python3 -m http.server 8080"]
+        args: ["echo 'GitOps funcionando com sucesso!' > index.html; python3 -m http.server 8080"]
         ports:
         - containerPort: 8080
 ---
