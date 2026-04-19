@@ -35,3 +35,12 @@ kubectl port-forward svc/meu-app-service 8080:80
 
 Em seguida, abra o seu navegador e acesse:
 http://localhost:8080
+
+## ⚙️ Integração Contínua (CI)
+
+O projeto conta com uma pipeline de Integração Contínua (CI) configurada via **GitHub Actions** (`.github/workflows/ci.yml`). 
+
+Sempre que um novo código é enviado (`push`) para o repositório, um fluxo automatizado é acionado para:
+- Configurar um ambiente de testes em uma máquina Linux rodando Python 3.9.
+- Instalar o `flake8` (ferramenta de verificação de estilo e sintaxe).
+- Validar o código Python (como o arquivo `app.py`) em busca de erros de sintaxe ou digitação, garantindo a qualidade do código antes de qualquer implantação.
