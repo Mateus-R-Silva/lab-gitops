@@ -19,7 +19,7 @@ kind: Deployment
 metadata:
   name: meu-app-python
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: meu-app
