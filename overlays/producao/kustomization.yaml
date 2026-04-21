@@ -1,11 +1,6 @@
 resources:
   - ../../base
 
-patches:
-  - target:
-      kind: Deployment
-      name: app-universal
-    patch: |-
-      -op: replace
-        path: /spec/replicas
-        value: 10
+replicas:
+  - name: app-universal
+    count: 10
