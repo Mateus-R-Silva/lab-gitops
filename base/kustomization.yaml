@@ -1,4 +1,0 @@
-resources:
-  - deployment.yaml
-
-#depois adicionar o service.yaml

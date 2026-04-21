@@ -1,6 +1,0 @@
-resources:
-  - ../../base
-
-replicas:
-  - name: app-universal
-    count: 10
