@@ -11,7 +11,7 @@ def home():
     try:
         hits = redis.incr('hits')
     except Exception as e:
-        hits: "Erro de conexão com Redis"
+        hits = 'Erro de conexão com Redis'
     # Pega o nome do Pod no Kubernetes. Se não existir, usa "Local"
     nome_do_pod = os.getenv('HOSTNAME', 'Local')
     return f"""<h1>App Full Stack</h1>
