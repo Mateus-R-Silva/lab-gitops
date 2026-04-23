@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-universal
+spec:
+  replicas: 1 # Padrão conservador
+  selector:
+    matchLabels:
+      app: meu-app
+  template:
+    metadata:
+      labels:
+        app: meu-app
+    spec:
+      containers:
+      - name: python-app
+        image: mateusr1/meu-app:v2
+        resources: # Regras de Governança (Ninguém sobe app sem limite!)
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+          requests:
+            cpu: "200m"
+            memory: "128Mi"

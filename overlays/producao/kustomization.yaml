@@ -1,0 +1,7 @@
+resources:
+  - ../../base
+
+# O "Poder do Admin": Sobrescrevendo apenas o necessário
+replicas:
+  - name: app-universal
+    count: 10
