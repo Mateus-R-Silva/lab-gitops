@@ -47,6 +47,26 @@ pipeline {
             }
         }
 
+        stage('Update GitOps (Kustomize)') {
+            steps {
+                script {
+                    echo "Atualizando a tag na imagem no ArgoCD..."
+                    
+                    withCredentials([usernamePassword(credentialsId: 'github-token-jenkins', passwordVariable: 'GIT_PASS', usernameVariable: 'GIT_USER')])
+                    sh """
+                    cd overlays/producao
+                    sed -i 's/newTag: .*newTag: ${IMAGE_TAG}/' kustomization.yaml
+
+                    git config --global user.mail "jenkins@lab-gitops.local"
+                    git config --global user.name "Jenkins"
+                    git add kustomization.yaml
+                    git commit -m "CI: Deploy automático da versão ${IMAGE_TAG}" 
+                    git push https://\${GIT_USER}:\${GIT_PASS}https://github.com/Mateus-R-Silva/lab-gitops.git HEAD:main
+                    """
+                }
+            }
+        }
+
         stage('Notificação') {
             steps {
                 echo "Pipeline finalizado com sucesso! Imagem ${DOCKER_IMAGE}:${IMAGE_TAG} disponível."
