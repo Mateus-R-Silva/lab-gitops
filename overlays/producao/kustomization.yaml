@@ -5,3 +5,8 @@ resources:
 replicas:
   - name: app-universal
     count: 10
+
+imagens:
+  - name: meu-app
+    newName: mateusr1/meu-app
+    newTag: v1
