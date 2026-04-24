@@ -48,6 +48,9 @@ pipeline {
         }
 
         stage('Update GitOps (Kustomize)') {
+            environment {
+                GIT_CREDS = credentials('github-token-jenkins')
+            }
             steps {
                 script {
                     echo "Atualizando a tag na imagem no ArgoCD..."
