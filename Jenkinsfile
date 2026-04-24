@@ -48,25 +48,31 @@ pipeline {
         }
 
         stage('Update GitOps (Kustomize)') {
+            // Injeta o Token de forma nativa e limpa.
+            // Isso cria automaticamente as variáveis GIT_CREDS_USR e GIT_CREDS_PSW
             environment {
                 GIT_CREDS = credentials('github-token-jenkins')
             }
             steps {
-                script {
-                    echo "Atualizando a tag na imagem no ArgoCD..."
+                // Com as credenciais no ambiente, rodamos tudo em um único bloco de shell (sh)
+                sh """
+                    echo "Atualizando a tag da imagem no ArgoCD..."
                     
-                    withCredentials([usernamePassword(credentialsId: 'github-token-jenkins', passwordVariable: 'GIT_PASS', usernameVariable: 'GIT_USER')])
-                    sh """
-                    cd overlays/producao
-                    sed -i 's/newTag: .*newTag: ${IMAGE_TAG}/' kustomization.yaml
+                    # 1. Configura a identidade do robô
+                    git config --global user.email "jenkins@lab-gitops.local"
+                    git config --global user.name "Robo do Jenkins"
 
-                    git config --global user.mail "jenkins@lab-gitops.local"
-                    git config --global user.name "Jenkins"
+                    # 2. Atualiza o arquivo Kustomize
+                    cd overlays/producao
+                    sed -i 's/newTag: .*/newTag: ${IMAGE_TAG}/' kustomization.yaml
+
+                    # 3. Prepara o commit
                     git add kustomization.yaml
-                    git commit -m "CI: Deploy automático da versão ${IMAGE_TAG}" 
-                    git push https://\${GIT_USER}:\${GIT_PASS}https://github.com/Mateus-R-Silva/lab-gitops.git HEAD:main
-                    """
-                }
+                    git commit -m "ci: deploy automático da versão ${IMAGE_TAG}"
+
+                    # 4. Envia para o GitHub usando as variáveis de ambiente seguras (com a barra invertida)
+                    git push https://\${GIT_CREDS_USR}:\${GIT_CREDS_PSW}@github.com/Mateus-R-Silva/lab-gitops.git HEAD:main
+                """
             }
         }
 
