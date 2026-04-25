@@ -1,56 +1,56 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: app-python-codigo
-data:
-  app.py: |
-    from flask import Flask
-    import os
-    app = Flask(__name__)
-    @app.route('/')
-    def home():
-        nome_pod = os.getenv('HOSTNAME', 'Local')
-        return f"<h1>App do Mateus v1.1</h1><p>Rodando no Pod: {nome_pod}</p>"
-    if __name__ == '__main__':
-        app.run(host='0.0.0.0', port=8080)
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: meu-app-python
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: meu-app
-  template:
-    metadata:
-      labels:
-        app: meu-app
-    spec:
-      containers:
-      - name: python-app
-        image: python:3.9-slim
-        command: ["/bin/sh", "-c"]
-        args: ["pip install flask && python /mnt/codigo/app.py"]
-        ports:
-        - containerPort: 8080
-        volumeMounts:
-        - name: volume-codigo
-          mountPath: /mnt/codigo
-      volumes:
-      - name: volume-codigo
-        configMap:
-          name: app-python-codigo
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: meu-app-service
-spec:
-  selector:
-    app: meu-app
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: app-python-codigo
+#data:
+#  app.py: |
+#    from flask import Flask
+#    import os
+#    app = Flask(__name__)
+#    @app.route('/')
+#    def home():
+#        nome_pod = os.getenv('HOSTNAME', 'Local')
+#        return f"<h1>App do Mateus v1.1</h1><p>Rodando no Pod: {nome_pod}</p>"
+#    if __name__ == '__main__':
+#        app.run(host='0.0.0.0', port=8080)
+#---
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: meu-app-python
+#spec:
+#  replicas: 2
+#  selector:
+#    matchLabels:
+#      app: meu-app
+#  template:
+#    metadata:
+#      labels:
+#        app: meu-app
+#    spec:
+#      containers:
+#      - name: python-app
+#        image: python:3.9-slim
+#        command: ["/bin/sh", "-c"]
+#        args: ["pip install flask && python /mnt/codigo/app.py"]
+#        ports:
+#        - containerPort: 8080
+#        volumeMounts:
+#        - name: volume-codigo
+#          mountPath: /mnt/codigo
+#      volumes:
+#      - name: volume-codigo
+#        configMap:
+#          name: app-python-codigo
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: meu-app-service
+#spec:
+#  selector:
+#    app: meu-app
+#  ports:
+#    - protocol: TCP
+#      port: 80
+#      targetPort: 8080

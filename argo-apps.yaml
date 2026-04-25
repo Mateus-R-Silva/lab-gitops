@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-dsv
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/Mateus-R-Silva/lab-gitops.git'
+    path: overlays/dsv
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dsv
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-hmo
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/Mateus-R-Silva/lab-gitops.git'
+    path: overlays/hmo
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: hmo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-prd
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/Mateus-R-Silva/lab-gitops.git'
+    path: overlays/prd
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: prd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

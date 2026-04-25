@@ -1,0 +1,15 @@
+# overlays/hmo/kustomization.yaml
+namespace: hmo
+
+resources:
+  - ../../base
+
+# HMO simula produção, podemos testar com 2 réplicas
+replicas:
+  - name: meu-app 
+    count: 2
+
+images:
+  - name: mateusr1/meu-app
+    newName: mateusr1/meu-app
+    newTag: v1 # Iniciaremos com a v1 fixa, e depois o processo de promoção assumirá isso

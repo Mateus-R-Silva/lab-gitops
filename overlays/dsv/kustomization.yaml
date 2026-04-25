@@ -1,0 +1,15 @@
+# overlays/dsv/kustomization.yaml
+namespace: dsv
+
+resources:
+  - ../../base
+
+# Em DSV, queremos economizar recursos, então forçamos apenas 1 réplica
+replicas:
+  - name: meu-app # ATENÇÃO: Coloque aqui o nome exato do Deployment que está no seu base/deployment.yaml
+    count: 1
+
+images:
+  - name: mateusr1/meu-app
+    newName: mateusr1/meu-app
+    newTag: latest # DSV sempre puxa a última versão para testes rápidos
