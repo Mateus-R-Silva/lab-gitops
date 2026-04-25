@@ -4,7 +4,7 @@ resources:
 # O "Poder do Admin": Sobrescrevendo apenas o necessário
 replicas:
   - name: app-universal
-    count: 10
+    count: 3
 
 images:
   - name: meu-app
