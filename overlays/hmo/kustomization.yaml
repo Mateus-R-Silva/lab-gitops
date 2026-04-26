@@ -12,4 +12,4 @@ replicas:
 images:
   - name: mateusr1/meu-app
     newName: mateusr1/meu-app
-    newTag: v1 # Iniciaremos com a v1 fixa, e depois o processo de promoção assumirá isso
+    newTag: v3 # Iniciaremos com a v1 fixa, e depois o processo de promoção assumirá isso
