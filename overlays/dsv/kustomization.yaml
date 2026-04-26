@@ -6,7 +6,7 @@ resources:
 
 # Em DSV, queremos economizar recursos, então forçamos apenas 1 réplica
 replicas:
-  - name: meu-app # ATENÇÃO: Coloque aqui o nome exato do Deployment que está no seu base/deployment.yaml
+  - name: app-universal # ATENÇÃO: Coloque aqui o nome exato do Deployment que está no seu base/deployment.yaml
     count: 1
 
 images:

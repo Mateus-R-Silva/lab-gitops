@@ -6,7 +6,7 @@ resources:
 
 # HMO simula produção, podemos testar com 2 réplicas
 replicas:
-  - name: meu-app 
+  - name: app-universal
     count: 2
 
 images:
