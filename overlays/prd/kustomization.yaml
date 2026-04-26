@@ -1,7 +1,6 @@
 resources:
   - ../../base
 
-# O "Poder do Admin": Sobrescrevendo apenas o necessário
 replicas:
   - name: app-universal
     count: 3
@@ -9,4 +8,4 @@ replicas:
 images:
   - name: meu-app
     newName: mateusr1/meu-app
-    newTag: v4
+    newTag: v2
