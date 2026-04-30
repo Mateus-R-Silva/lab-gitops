@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: python-app
-        image: mateusr1/meu-app:v3 
+        image: mateusr1/meu-app:v7
         env:
           - name: REDIS_HOST
             value: redis
