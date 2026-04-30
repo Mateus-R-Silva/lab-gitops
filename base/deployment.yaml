@@ -6,15 +6,20 @@ spec:
   replicas: 1 # Padrão conservador
   selector:
     matchLabels:
-      app: meu-app
+      app: app-universal
   template:
     metadata:
       labels:
-        app: meu-app
+        app: app-universal
     spec:
       containers:
       - name: python-app
-        image: mateusr1/meu-app:v2
+        image: mateusr1/meu-app:v6  
+        env:
+          - name: REDIS_HOST
+            value: redis
+        ports:
+        - containerPort: 8080
         resources: # Regras de Governança (Ninguém sobe app sem limite!)
           limits:
             cpu: "500m"

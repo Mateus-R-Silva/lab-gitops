@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-universal-service
+spec:
+  selector:
+    app: app-universal # Deve ser idêntico ao label do seu Deployment
+  ports:
+    - protocol: TCP
+      port: 80        # Porta que o Service expõe para o cluster
+      targetPort: 8080 # Porta que o Flask está ouvindo (conforme app.py)
+  type: ClusterIP     # Padrão para comunicação interna
