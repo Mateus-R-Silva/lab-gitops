@@ -2,5 +2,7 @@ resources:
   - deployment.yaml
   - redis.yaml
   - service.yaml
+  - ingress.yaml
+
 
 #depois adicionar o service.yaml
